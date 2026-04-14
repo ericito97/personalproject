@@ -1,76 +1,136 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuestra Cita Romántica - Menú Especial</title>
-    <link rel="stylesheet" href="styles.css">
-    <!-- Firebase Realtime Database -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menú Romántico | Cena Especial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;800&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
 </head>
 <body>
-    <div class="container">
-        <!-- Botón de login en esquina superior derecha -->
-        <button class="btn-login-toggle" onclick="toggleLoginPanel()">🔐 Admin</button>
-        
-        <h1>🍽️ Nuestra Cita Romántica 🍽️</h1>
-        <p class="intro">Querida [Nombre de tu novia], he preparado un menú especial para nosotros. Revelaré cada plato cuando llegue el momento perfecto. ¡Disfrútalo desde el comedor mientras yo cocino! ❤️</p>
-        
-        <!-- Panel de login (inicialmente oculto) -->
-        <div id="login-panel" class="login-panel oculto-login">
-            <p>¿Eres el cocinero? Ingresa la contraseña:</p>
-            <input type="password" id="password-input" placeholder="Contraseña" onkeypress="if(event.key==='Enter') abrirAdmin()">
-            <button onclick="abrirAdmin()">Acceder como Admin</button>
-            <button class="btn-cerrar-login" onclick="toggleLoginPanel()">✕ Cerrar</button>
-        </div>
-        
-        <div id="admin-panel" class="admin-panel oculto-panel">
-            <p class="admin-label">👨‍🍳 Modo Admin Activado</p>
-            <button class="btn-logout" onclick="cerrarAdmin()">Cerrar Sesión</button>
-        </div>
-        
-        <div class="menu">
-            <div class="plato-contenedor">
-                <button class="btn-revelar admin-only oculto-boton" onclick="revelarPlato(1)">🍽️ Revelar Aperitivo</button>
-                <button class="btn-ocultar admin-only oculto-boton" onclick="ocultarPlato(1)">👁️ Ocultar</button>
-                <div class="plato oculto" id="plato1">
-                    <h2>Aperitivo: Ensalada de Fresas con Queso</h2>
-                    <p>Frescas fresas mezcladas con queso cremoso y un toque de menta. ¡Dulce y refrescante!</p>
-                </div>
-            </div>
-            
-            <div class="plato-contenedor">
-                <button class="btn-revelar admin-only oculto-boton" onclick="revelarPlato(2)">🍝 Revelar Plato Principal</button>
-                <button class="btn-ocultar admin-only oculto-boton" onclick="ocultarPlato(2)">👁️ Ocultar</button>
-                <div class="plato oculto" id="plato2">
-                    <h2>Plato Principal: Pasta con Salsa de Trufa</h2>
-                    <p>Pasta al dente con una salsa rica en trufa, acompañada de champiñones salteados. ¡Un clásico italiano con un giro romántico!</p>
-                </div>
-            </div>
-            
-            <div class="plato-contenedor">
-                <button class="btn-revelar admin-only oculto-boton" onclick="revelarPlato(3)">🍰 Revelar Postre</button>
-                <button class="btn-ocultar admin-only oculto-boton" onclick="ocultarPlato(3)">👁️ Ocultar</button>
-                <div class="plato oculto" id="plato3">
-                    <h2>Postre: Tarta de Chocolate con Frutas</h2>
-                    <p>Una tarta decadente de chocolate negro, decorada con fresas frescas y un corazón de crema. ¡El final perfecto para nuestra noche!</p>
-                </div>
-            </div>
-            
-            <div class="plato-contenedor">
-                <button class="btn-revelar admin-only oculto-boton" onclick="revelarPlato(4)">✨ Revelar Sorpresa</button>
-                <button class="btn-ocultar admin-only oculto-boton" onclick="ocultarPlato(4)">👁️ Ocultar</button>
-                <div class="plato oculto" id="plato4">
-                    <h2>Sorpresa Final: Champagne y Bailar</h2>
-                    <p>Después del postre, un brindis con champagne y una canción lenta para bailar juntos. ¡Te amo! 💕</p>
-                </div>
-            </div>
-        </div>
-        
-        <p class="footer">Los cambios se actualizan automáticamente. ¡Nos vemos pronto! 😘</p>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-title">Cena Romántica</span>
+        <span class="brand-subtitle">Menú especial para nuestra noche</span>
+      </div>
+      <button class="btn-login-toggle" onclick="toggleLoginPanel()">🔐 Admin</button>
     </div>
-    
-    <script src="script.js"></script>
+  </header>
+
+  <main class="page-content">
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">Experiencia íntima</span>
+        <h1>Un menú pensado para nosotros</h1>
+        <p>Esta noche tengo preparado un recorrido gastronómico con detalles especiales, y sólo yo podré revelar cada plato en el momento perfecto.</p>
+      </div>
+      <div class="hero-card">
+        <p class="hero-note">Disfruta de la noche. El menú se actualiza automáticamente en ambos dispositivos.</p>
+      </div>
+    </section>
+
+    <section id="login" class="panel-wrap">
+      <div id="login-panel" class="login-panel oculto-login">
+        <p>¿Eres el cocinero? Ingresa la contraseña:</p>
+        <input type="password" id="password-input" placeholder="Contraseña" onkeypress="if(event.key==='Enter') abrirAdmin()" />
+        <button onclick="abrirAdmin()">Acceder como Admin</button>
+        <button class="btn-cerrar-login" onclick="toggleLoginPanel()">✕ Cerrar</button>
+      </div>
+      <div id="admin-panel" class="admin-panel oculto-panel">
+        <div>
+          <p class="admin-label">👨‍🍳 Modo Admin activo</p>
+          <p class="admin-text">Revela y oculta los platos para la sorpresa perfecta.</p>
+        </div>
+        <button class="btn-logout" onclick="cerrarAdmin()">Cerrar sesión</button>
+      </div>
+    </section>
+
+    <section id="aperitivos" class="section-block">
+      <div class="section-heading">
+        <span class="section-number">I</span>
+        <div>
+          <h2>Aperitivos</h2>
+          <p>Un comienzo delicado y delicioso para nuestra cena.</p>
+        </div>
+      </div>
+      <div class="cards-grid">
+        <article class="card">
+          <div class="card-actions">
+            <button class="btn-revelar admin-only oculto-boton" onclick="revelarPlato(1)">Revelar aperitivos</button>
+            <button class="btn-ocultar admin-only oculto-boton" onclick="ocultarPlato(1)">Ocultar</button>
+          </div>
+          <div class="plato oculto" id="plato1"></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="principal" class="section-block">
+      <div class="section-heading">
+        <span class="section-number">II</span>
+        <div>
+          <h2>Primer Plato</h2>
+          <p>El plato fuerte con un toque de encanto casero.</p>
+        </div>
+      </div>
+      <div class="cards-grid">
+        <article class="card">
+          <div class="card-actions">
+            <button class="btn-revelar admin-only oculto-boton" onclick="revelarPlato(2)">Revelar plato</button>
+            <button class="btn-ocultar admin-only oculto-boton" onclick="ocultarPlato(2)">Ocultar</button>
+          </div>
+          <div class="plato oculto" id="plato2"></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="postre" class="section-block">
+      <div class="section-heading">
+        <span class="section-number">III</span>
+        <div>
+          <h2>Postre</h2>
+          <p>El final dulce que eleva la velada.</p>
+        </div>
+      </div>
+      <div class="cards-grid">
+        <article class="card">
+          <div class="card-actions">
+            <button class="btn-revelar admin-only oculto-boton" onclick="revelarPlato(3)">Revelar postre</button>
+            <button class="btn-ocultar admin-only oculto-boton" onclick="ocultarPlato(3)">Ocultar</button>
+          </div>
+          <div class="plato oculto" id="plato3"></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="sorpresa" class="section-block">
+      <div class="section-heading">
+        <span class="section-number">IV</span>
+        <div>
+          <h2>Sorpresa Final</h2>
+          <p>El broche final para una noche inolvidable.</p>
+        </div>
+      </div>
+      <div class="cards-grid">
+        <article class="card">
+          <div class="card-actions">
+            <button class="btn-revelar admin-only oculto-boton" onclick="revelarPlato(4)">Revelar sorpresa</button>
+            <button class="btn-ocultar admin-only oculto-boton" onclick="ocultarPlato(4)">Ocultar</button>
+          </div>
+          <div class="plato oculto" id="plato4"></div>
+        </article>
+      </div>
+    </section>
+
+    <footer class="page-footer">
+      <p>© 2026 Cena Romántica • Una velada diseñada para nosotros.</p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
 </body>
 </html>

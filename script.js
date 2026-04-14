@@ -20,8 +20,50 @@ const estadoInicial = {
     plato4: false
 };
 
+// Contenido de los platos (solo visible cuando se revelan)
+const contenidoPlatos = {
+    plato1: `
+        <div class="card-header">
+            <h3>Aperitivos Especiales</h3>
+            <span class="card-price">Para compartir</span>
+        </div>
+        <p class="card-description">Una selección pensada para abrir el apetito y disfrutar a dos.</p>
+        <ul class="card-list">
+            <li>Gulas con paprika</li>
+            <li>Queso Provolone</li>
+            <li>Tartaletas de bacon y huevo de codorniz</li>
+            <li>Pincho japonés de huevos de codorniz</li>
+        </ul>
+        <p>Estos aperitivos serán visibles cuando el chef los revele. Prepárate para compartir un momento delicioso.</p>
+    `,
+    plato2: `
+        <div class="card-header">
+            <h3>Entrecot con Salsa a la Pimienta</h3>
+            <span class="card-price">Menú principal</span>
+        </div>
+        <p class="card-description">Jugoso entrecot acompañado de puré de patata casero y salsa cremosa de pimienta.</p>
+        <p>El primer plato se mostrará aquí cuando esté listo. Un toque clásico con cariño.</p>
+    `,
+    plato3: `
+        <div class="card-header">
+            <h3>Galletas de Chocolate Blanco</h3>
+            <span class="card-price">Final suave</span>
+        </div>
+        <p class="card-description">Galletas crujientes rellenas de chocolate blanco y mermelada, perfectas para compartir.</p>
+        <p>Un postre delicado que aparecerá en el momento justo para endulzar la noche.</p>
+    `,
+    plato4: `
+        <div class="card-header">
+            <h3>Brindis Romántico</h3>
+            <span class="card-price">Toque final</span>
+        </div>
+        <p class="card-description">Una copa y una promesa para cerrar la noche con una sonrisa.</p>
+        <p>La sorpresa final aparecerá cuando llegue el momento más especial de la cena.</p>
+    `
+};
+
 // Contraseña del admin (cámbiala por lo que quieras)
-const ADMIN_PASSWORD = "amor2026";
+const ADMIN_PASSWORD = "linuxlinux";
 
 let isAdmin = localStorage.getItem('adminSesion') === 'true';
 
@@ -118,10 +160,15 @@ menuRef.on('value', (snapshot) => {
 
     for (let i = 1; i <= 4; i++) {
         const plato = document.getElementById('plato' + i);
+        
         if (datos['plato' + i]) {
+            // Revelar: agregar contenido y mostrar
+            plato.innerHTML = contenidoPlatos['plato' + i];
             plato.classList.remove('oculto');
             plato.classList.add('revelado');
         } else {
+            // Ocultar: limpiar contenido y ocultar
+            plato.innerHTML = '';
             plato.classList.add('oculto');
             plato.classList.remove('revelado');
         }
