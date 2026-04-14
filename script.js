@@ -20,8 +20,57 @@ const estadoInicial = {
     plato4: false
 };
 
-// Función para revelar un plato
+// Contraseña del admin (cámbiala por lo que quieras)
+const ADMIN_PASSWORD = "amor2026";
+
+let isAdmin = localStorage.getItem('adminSesion') === 'true';
+
+// Función para abrir sesión de admin
+function abrirAdmin() {
+    const password = document.getElementById('password-input').value;
+    if (password === ADMIN_PASSWORD) {
+        isAdmin = true;
+        localStorage.setItem('adminSesion', 'true');
+        actualizarUI();
+        document.getElementById('password-input').value = '';
+        console.log("✅ Admin activo");
+    } else {
+        alert("❌ Contraseña incorrecta");
+    }
+}
+
+// Función para cerrar sesión de admin
+function cerrarAdmin() {
+    isAdmin = false;
+    localStorage.removeItem('adminSesion');
+    actualizarUI();
+    console.log("❌ Admin cerrado");
+}
+
+// Actualizar UI según el rol
+function actualizarUI() {
+    const loginPanel = document.getElementById('login-panel');
+    const adminPanel = document.getElementById('admin-panel');
+    const botonesAdmin = document.querySelectorAll('.admin-only');
+    
+    if (isAdmin) {
+        loginPanel.style.display = 'none';
+        adminPanel.classList.remove('oculto-panel');
+        botonesAdmin.forEach(btn => btn.classList.remove('oculto-boton'));
+    } else {
+        loginPanel.style.display = 'block';
+        adminPanel.classList.add('oculto-panel');
+        botonesAdmin.forEach(btn => btn.classList.add('oculto-boton'));
+    }
+}
+
+// Función para revelar un plato (solo admin)
 function revelarPlato(numero) {
+    if (!isAdmin) {
+        alert("Solo el admin puede revelar platos");
+        return;
+    }
+    
     console.log("Revelando plato", numero);
     menuRef.once('value', (snapshot) => {
         const datos = snapshot.val() || estadoInicial;
@@ -30,7 +79,7 @@ function revelarPlato(numero) {
             console.log("Plato " + numero + " revelado en Firebase");
         }).catch((error) => {
             console.error("Error al revelar plato:", error);
-            alert("Error: Revisa la conexión a Firebase o las reglas de seguridad");
+            alert("Error: Revisa la conexión a Firebase");
         });
     });
 }
@@ -42,20 +91,22 @@ menuRef.on('value', (snapshot) => {
     
     for (let i = 1; i <= 4; i++) {
         const plato = document.getElementById('plato' + i);
-        const boton = plato.querySelector('button');
         
         if (datos['plato' + i]) {
             // Revelar
             plato.classList.remove('oculto');
             plato.classList.add('revelado');
-            if (boton) boton.style.display = 'none';
         } else {
             // Ocultar
             plato.classList.add('oculto');
             plato.classList.remove('revelado');
-            if (boton) boton.style.display = 'block';
         }
     }
 }, (error) => {
     console.error("Error al conectar con Firebase:", error);
+});
+
+// Inicializar UI cuando la página carga
+window.addEventListener('DOMContentLoaded', function() {
+    actualizarUI();
 });
