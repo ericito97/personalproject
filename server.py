@@ -85,9 +85,10 @@ if __name__ == '__main__':
     local_ip = socket.gethostbyname(hostname)
     
     print(f"🍽️  Servidor de Cena Romántica corriendo")
-    print(f"Local: http://localhost:5000")
-    print(f"Red local: http://{local_ip}:5000")
-    print(f"Abre esto en tu móvil si estás en la misma wifi")
+    print(f"Local: http://localhost:8000")
+    print(f"Red local: http://{local_ip}:8000")
+    print(f"\n📱 Abre esto en tu móvil/tablet (misma wifi):")
+    print(f"   http://{local_ip}:8000")
     print(f"\nCtrl+C para detener el servidor")
     
-    app.run(debug=False, host='0.0.0.0', port=5000)
+    app.run(debug=False, host='0.0.0.0', port=8000)
