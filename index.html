@@ -5,43 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nuestra Cita Romántica - Menú Especial</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- Firebase SDK -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-        import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
-
-        // Configuración de Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyBKFqxrgtq5qhIC_SvSbo0uxwusHJIOYms",
-            authDomain: "cenaromantica-be399.firebaseapp.com",
-            databaseURL: "https://cenaromantica-be399-default-rtdb.firebaseio.com",
-            projectId: "cenaromantica-be399",
-            storageBucket: "cenaromantica-be399.firebasestorage.app",
-            messagingSenderId: "836185016239",
-            appId: "1:836185016239:web:1bd481bca8fb142015915a",
-            measurementId: "G-0YRV07JNTB"
-        };
-
-        // Inicializar Firebase
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-
-        window.firebaseApp = app;
-        window.database = database;
-        window.ref = ref;
-        window.set = set;
-        window.onValue = onValue;
-    </script>
 </head>
 <body>
     <div class="container">
         <h1>🍽️ Nuestra Cita Romántica 🍽️</h1>
-        <p class="intro">Cariño, he preparado un menú especial para nosotros. Revelaré cada plato cuando llegue el momento perfecto. ¡Disfrútalo desde el comedor mientras yo cocino! ❤️</p>
+        <p class="intro">Querida [Nombre de tu novia], he preparado un menú especial para nosotros. Revelaré cada plato cuando llegue el momento perfecto. ¡Disfrútalo desde el comedor mientras yo cocino! ❤️</p>
         
         <div class="menu">
-            <div class="plato oculto" id="plato1">
+            <div class="plato" id="plato1">
                 <h2>Aperitivo: Ensalada de Fresas con Queso</h2>
                 <p>Frescas fresas mezcladas con queso cremoso y un toque de menta. ¡Dulce y refrescante!</p>
+                <button onclick="revelarPlato(1)">Revelar Aperitivo</button>
             </div>
             
             <div class="plato oculto" id="plato2">
