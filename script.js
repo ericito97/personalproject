@@ -25,6 +25,15 @@ const ADMIN_PASSWORD = "amor2026";
 
 let isAdmin = localStorage.getItem('adminSesion') === 'true';
 
+// Función para toggle del panel de login
+function toggleLoginPanel() {
+    const loginPanel = document.getElementById('login-panel');
+    loginPanel.classList.toggle('oculto-login');
+    if (!loginPanel.classList.contains('oculto-login')) {
+        document.getElementById('password-input').focus();
+    }
+}
+
 // Función para abrir sesión de admin
 function abrirAdmin() {
     const password = document.getElementById('password-input').value;
@@ -33,6 +42,7 @@ function abrirAdmin() {
         localStorage.setItem('adminSesion', 'true');
         actualizarUI();
         document.getElementById('password-input').value = '';
+        toggleLoginPanel(); // Cerrar el panel automáticamente
         console.log("✅ Admin activo");
     } else {
         alert("❌ Contraseña incorrecta");
@@ -54,11 +64,9 @@ function actualizarUI() {
     const botonesAdmin = document.querySelectorAll('.admin-only');
     
     if (isAdmin) {
-        loginPanel.style.display = 'none';
         adminPanel.classList.remove('oculto-panel');
         botonesAdmin.forEach(btn => btn.classList.remove('oculto-boton'));
     } else {
-        loginPanel.style.display = 'block';
         adminPanel.classList.add('oculto-panel');
         botonesAdmin.forEach(btn => btn.classList.add('oculto-boton'));
     }
@@ -74,7 +82,27 @@ function revelarPlato(numero) {
     console.log("Revelando plato", numero);
     menuRef.once('value', (snapshot) => {
         const datos = snapshot.val() || estadoInicial;
-        datos['plato' + numero] = true;
+ 
+
+// Función para ocultar un plato (solo admin)
+function ocultarPlato(numero) {
+    if (!isAdmin) {
+        alert("Solo el admin puede ocultar platos");
+        return;
+    }
+    
+    console.log("Ocultando plato", numero);
+    menuRef.once('value', (snapshot) => {
+        const datos = snapshot.val() || estadoInicial;
+        datos['plato' + numero] = false;
+        menuRef.set(datos).then(() => {
+            console.log("Plato " + numero + " ocultado en Firebase");
+        }).catch((error) => {
+            console.error("Error al ocultar plato:", error);
+            alert("Error: Revisa la conexión a Firebase");
+        });
+    });
+}       datos['plato' + numero] = true;
         menuRef.set(datos).then(() => {
             console.log("Plato " + numero + " revelado en Firebase");
         }).catch((error) => {
