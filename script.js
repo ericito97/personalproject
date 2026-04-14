@@ -2,7 +2,7 @@
 const firebaseConfig = {
     apiKey: "AIzaSyBKFqxrgtq5qhIC_SvSbo0uxwusHJIOYms",
     authDomain: "cenaromantica-be399.firebaseapp.com",
-    databaseURL: "https://cenaromantica-be399-default-rtdb.firebaseio.com",
+    databaseURL: "https://cenaromantica-be399-default-rtdb.europe-west1.firebasedatabase.app",
     projectId: "cenaromantica-be399",
     storageBucket: "cenaromantica-be399.firebasestorage.app",
     messagingSenderId: "836185016239",
