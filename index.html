@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestra Cita Romántica - Menú Especial</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🍽️ Nuestra Cita Romántica 🍽️</h1>
+        <p class="intro">Querida [Nombre de tu novia], he preparado un menú especial para nosotros. Revelaré cada plato cuando llegue el momento perfecto. ¡Disfrútalo desde el comedor mientras yo cocino! ❤️</p>
+        
+        <div class="menu">
+            <div class="plato" id="plato1">
+                <h2>Aperitivo: Ensalada de Fresas con Queso</h2>
+                <p>Frescas fresas mezcladas con queso cremoso y un toque de menta. ¡Dulce y refrescante!</p>
+                <button onclick="revelarPlato(1)">Revelar Aperitivo</button>
+            </div>
+            
+            <div class="plato oculto" id="plato2">
+                <h2>Plato Principal: Pasta con Salsa de Trufa</h2>
+                <p>Pasta al dente con una salsa rica en trufa, acompañada de champiñones salteados. ¡Un clásico italiano con un giro romántico!</p>
+                <button onclick="revelarPlato(2)">Revelar Plato Principal</button>
+            </div>
+            
+            <div class="plato oculto" id="plato3">
+                <h2>Postre: Tarta de Chocolate con Frutas</h2>
+                <p>Una tarta decadente de chocolate negro, decorada con fresas frescas y un corazón de crema. ¡El final perfecto para nuestra noche!</p>
+                <button onclick="revelarPlato(3)">Revelar Postre</button>
+            </div>
+            
+            <div class="plato oculto" id="plato4">
+                <h2>Sorpresa Final: Champagne y Bailar</h2>
+                <p>Después del postre, un brindis con champagne y una canción lenta para bailar juntos. ¡Te amo! 💕</p>
+                <button onclick="revelarPlato(4)">Revelar Sorpresa</button>
+            </div>
+        </div>
+        
+        <p class="footer">Recuerda refrescar la página si no ves los cambios. ¡Nos vemos pronto! 😘</p>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

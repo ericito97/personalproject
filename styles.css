@@ -1,0 +1,88 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom, #ffe6f0, #ffb3d9);
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 800px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    color: #d63384;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.intro {
+    font-size: 1.2em;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.plato {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.5s ease;
+}
+
+.plato.oculto {
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+}
+
+.plato.revelado {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.plato h2 {
+    color: #d63384;
+    margin-bottom: 10px;
+}
+
+.plato p {
+    font-size: 1.1em;
+    line-height: 1.5;
+}
+
+button {
+    background: #d63384;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #b0286a;
+}
+
+.footer {
+    margin-top: 30px;
+    font-style: italic;
+    color: #666;
+}
