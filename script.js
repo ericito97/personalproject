@@ -1,5 +1,6 @@
 // Configuración del servidor
-const API_URL = 'http://localhost:5000/api';
+// Usa URLs relativas para que funcione en localhost, 192.168.x.x, etc.
+const API_URL = '/api';
 
 const initialState = {
     plato1: false,

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory, render_template_string
 from flask_cors import CORS
 import json
 import os
@@ -26,6 +26,27 @@ def guardar_estado(estado):
     """Guarda el estado de los platos en un archivo."""
     with open(STATE_FILE, 'w') as f:
         json.dump(estado, f)
+
+# Servir la página HTML principal
+@app.route('/')
+def index():
+    """Sirve el archivo index.html"""
+    with open('index.html', 'r', encoding='utf-8') as f:
+        return f.read()
+
+# Servir CSS
+@app.route('/styles.css')
+def styles():
+    """Sirve el archivo CSS"""
+    with open('styles.css', 'r', encoding='utf-8') as f:
+        return f.read(), 200, {'Content-Type': 'text/css'}
+
+# Servir JavaScript
+@app.route('/script.js')
+def script():
+    """Sirve el archivo JavaScript"""
+    with open('script.js', 'r', encoding='utf-8') as f:
+        return f.read(), 200, {'Content-Type': 'application/javascript'}
 
 @app.route('/api/estado', methods=['GET'])
 def get_estado():
@@ -67,5 +88,6 @@ if __name__ == '__main__':
     print(f"Local: http://localhost:5000")
     print(f"Red local: http://{local_ip}:5000")
     print(f"Abre esto en tu móvil si estás en la misma wifi")
+    print(f"\nCtrl+C para detener el servidor")
     
     app.run(debug=False, host='0.0.0.0', port=5000)
