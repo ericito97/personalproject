@@ -1,6 +1,5 @@
-// Inicializar cuando Firebase esté listo
-let database = null;
-let menuRef = null;
+// Configuración del servidor
+const API_URL = 'http://localhost:5000/api';
 
 const initialState = {
     plato1: false,
@@ -11,40 +10,32 @@ const initialState = {
 
 // Esperar a que el DOM esté listo
 document.addEventListener('DOMContentLoaded', function() {
-    // Firebase debería estar cargado
-    if (window.database) {
-        database = window.database;
-        menuRef = database.ref('menu');
-        console.log("Firebase inicializado correctamente");
-        
-        // Iniciar polling
-        pollUpdates();
-    } else {
-        console.error("Firebase no está disponible");
-    }
+    console.log("Conectando al servidor...");
+    // Iniciar polling
+    pollUpdates();
+    // Polling cada 5 segundos
+    setInterval(pollUpdates, 5000);
 });
 
 function revelarPlato(numero) {
     console.log("Revelando plato", numero);
     
-    if (!menuRef) {
-        console.error("menuRef no está inicializado");
-        return;
-    }
-    
-    // Actualizar en Firebase
-    menuRef.once('value').then((snapshot) => {
-        const data = snapshot.val() || initialState;
-        data['plato' + numero] = true;
-        return menuRef.set(data);
-    }).then(() => {
-        console.log("Actualizado en Firebase");
-    }).catch((error) => {
-        console.error("Error al actualizar Firebase:", error);
+    // Enviar petición al servidor
+    fetch(`${API_URL}/revelar/${numero}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Actualizado en servidor:", data);
+        actualizarVista(data);
+    })
+    .catch(error => {
+        console.error("Error al revelar plato:", error);
+        alert("Error: ¿Está corriendo el servidor? python3 server.py");
     });
-
-    // Actualizar localmente inmediatamente
-    actualizarVista({ ...initialState, ['plato' + numero]: true });
 }
 
 function actualizarVista(state) {
@@ -67,10 +58,12 @@ function actualizarVista(state) {
 }
 
 function pollUpdates() {
-    if (!menuRef) return;
-    
-    menuRef.on('value', (snapshot) => {
-        const data = snapshot.val() || initialState;
+    fetch(`${API_URL}/estado`)
+    .then(response => response.json())
+    .then(data => {
         actualizarVista(data);
+    })
+    .catch(error => {
+        console.error("Error al conectar con servidor:", error);
     });
 }
