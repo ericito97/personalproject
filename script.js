@@ -1,4 +1,4 @@
-// Esperar a que Firebase se cargue
+// Función para inicializar la app
 function initApp() {
     const database = window.database;
     const ref = window.ref;
@@ -11,7 +11,7 @@ function initApp() {
     }
 
     // Referencia a la base de datos
-    const menuRef = ref(database, 'menu');
+    const menuRef = database.ref('menu');
 
     // Estado inicial si no existe
     const initialState = {
@@ -25,15 +25,15 @@ function initApp() {
     window.revelarPlato = function(numero) {
         console.log("Revelando plato", numero);
         // Actualizar en Firebase
-        onValue(menuRef, (snapshot) => {
+        menuRef.once('value').then((snapshot) => {
             const data = snapshot.val() || initialState;
             data['plato' + numero] = true;
-            set(menuRef, data).then(() => {
-                console.log("Actualizado en Firebase");
-            }).catch((error) => {
-                console.error("Error al actualizar Firebase:", error);
-            });
-        }, { onlyOnce: true });
+            return menuRef.set(data);
+        }).then(() => {
+            console.log("Actualizado en Firebase");
+        }).catch((error) => {
+            console.error("Error al actualizar Firebase:", error);
+        });
 
         // Actualizar localmente inmediatamente
         actualizarVista({ ...initialState, ['plato' + numero]: true });
@@ -59,7 +59,7 @@ function initApp() {
 
     // Polling cada 5 segundos
     function pollUpdates() {
-        onValue(menuRef, (snapshot) => {
+        menuRef.on('value', (snapshot) => {
             const data = snapshot.val() || initialState;
             actualizarVista(data);
         });
@@ -67,7 +67,6 @@ function initApp() {
 
     // Iniciar polling
     pollUpdates();
-    setInterval(pollUpdates, 5000); // Cada 5 segundos
 
     // Animación CSS
     const style = document.createElement('style');
@@ -82,20 +81,5 @@ function initApp() {
 
 // Llamar initApp cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', function() {
-    if (typeof window.database !== 'undefined') {
-        initApp();
-    } else {
-        // Esperar hasta 5 segundos por Firebase
-        let attempts = 0;
-        const checkFirebase = setInterval(() => {
-            attempts++;
-            if (typeof window.database !== 'undefined') {
-                clearInterval(checkFirebase);
-                initApp();
-            } else if (attempts > 50) { // 5 segundos
-                clearInterval(checkFirebase);
-                console.error("Firebase no se cargó a tiempo");
-            }
-        }, 100);
-    }
+    initApp();
 });
