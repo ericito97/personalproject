@@ -51,6 +51,10 @@ h1 {
     pointer-events: none;
 }
 
+.plato.oculto button {
+    pointer-events: auto;
+}
+
 .plato.revelado {
     opacity: 1;
     transform: translateY(0);
