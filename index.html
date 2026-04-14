@@ -28,7 +28,12 @@
         <div id="admin-panel" class="admin-panel oculto-panel">
             <p class="admin-label">👨‍🍳 Modo Admin Activado</p>
             <button class="btn-logout" onclick="cerrarAdmin()">Cerrar Sesión</button>
-        </div>button class="btn-ocultar admin-only oculto-boton" onclick="ocultarPlato(1)">👁️ Ocultar Aperitivo</button>
+        </div>
+        
+        <div class="menu">
+            <div class="plato-contenedor">
+                <button class="btn-revelar admin-only oculto-boton" onclick="revelarPlato(1)">🍽️ Revelar Aperitivo</button>
+                <button class="btn-ocultar admin-only oculto-boton" onclick="ocultarPlato(1)">👁️ Ocultar</button>
                 <div class="plato oculto" id="plato1">
                     <h2>Aperitivo: Ensalada de Fresas con Queso</h2>
                     <p>Frescas fresas mezcladas con queso cremoso y un toque de menta. ¡Dulce y refrescante!</p>
@@ -37,7 +42,7 @@
             
             <div class="plato-contenedor">
                 <button class="btn-revelar admin-only oculto-boton" onclick="revelarPlato(2)">🍝 Revelar Plato Principal</button>
-                <button class="btn-ocultar admin-only oculto-boton" onclick="ocultarPlato(2)">👁️ Ocultar Plato Principal</button>
+                <button class="btn-ocultar admin-only oculto-boton" onclick="ocultarPlato(2)">👁️ Ocultar</button>
                 <div class="plato oculto" id="plato2">
                     <h2>Plato Principal: Pasta con Salsa de Trufa</h2>
                     <p>Pasta al dente con una salsa rica en trufa, acompañada de champiñones salteados. ¡Un clásico italiano con un giro romántico!</p>
@@ -46,7 +51,7 @@
             
             <div class="plato-contenedor">
                 <button class="btn-revelar admin-only oculto-boton" onclick="revelarPlato(3)">🍰 Revelar Postre</button>
-                <button class="btn-ocultar admin-only oculto-boton" onclick="ocultarPlato(3)">👁️ Ocultar Postre</button>
+                <button class="btn-ocultar admin-only oculto-boton" onclick="ocultarPlato(3)">👁️ Ocultar</button>
                 <div class="plato oculto" id="plato3">
                     <h2>Postre: Tarta de Chocolate con Frutas</h2>
                     <p>Una tarta decadente de chocolate negro, decorada con fresas frescas y un corazón de crema. ¡El final perfecto para nuestra noche!</p>
@@ -55,12 +60,7 @@
             
             <div class="plato-contenedor">
                 <button class="btn-revelar admin-only oculto-boton" onclick="revelarPlato(4)">✨ Revelar Sorpresa</button>
-                <button class="btn-ocultar admin-only oculto-boton" onclick="ocultarPlato(4)">👁️ Ocultón de crema. ¡El final perfecto para nuestra noche!</p>
-                </div>
-            </div>
-            
-            <div class="plato-contenedor">
-                <button class="btn-revelar admin-only oculto-boton" onclick="revelarPlato(4)">✨ Revelar Sorpresa</button>
+                <button class="btn-ocultar admin-only oculto-boton" onclick="ocultarPlato(4)">👁️ Ocultar</button>
                 <div class="plato oculto" id="plato4">
                     <h2>Sorpresa Final: Champagne y Bailar</h2>
                     <p>Después del postre, un brindis con champagne y una canción lenta para bailar juntos. ¡Te amo! 💕</p>
