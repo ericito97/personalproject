@@ -4,7 +4,7 @@ const firebaseConfig = {
     authDomain: "cenaromantica-be399.firebaseapp.com",
     databaseURL: "https://cenaromantica-be399-default-rtdb.europe-west1.firebasedatabase.app",
     projectId: "cenaromantica-be399",
-    storageBucket: "cenaromantica-be399.firebasestorage.app",
+    storageBucket: "cenaromantica-be399.appspot.com",
     messagingSenderId: "836185016239",
     appId: "1:836185016239:web:1bd481bca8fb142015915a"
 };
@@ -42,7 +42,9 @@ function abrirAdmin() {
         localStorage.setItem('adminSesion', 'true');
         actualizarUI();
         document.getElementById('password-input').value = '';
-        toggleLoginPanel(); // Cerrar el panel automáticamente
+        if (!document.getElementById('login-panel').classList.contains('oculto-login')) {
+            toggleLoginPanel();
+        }
         console.log("✅ Admin activo");
     } else {
         alert("❌ Contraseña incorrecta");
@@ -59,10 +61,9 @@ function cerrarAdmin() {
 
 // Actualizar UI según el rol
 function actualizarUI() {
-    const loginPanel = document.getElementById('login-panel');
     const adminPanel = document.getElementById('admin-panel');
     const botonesAdmin = document.querySelectorAll('.admin-only');
-    
+
     if (isAdmin) {
         adminPanel.classList.remove('oculto-panel');
         botonesAdmin.forEach(btn => btn.classList.remove('oculto-boton'));
@@ -78,11 +79,18 @@ function revelarPlato(numero) {
         alert("Solo el admin puede revelar platos");
         return;
     }
-    
-    console.log("Revelando plato", numero);
+
     menuRef.once('value', (snapshot) => {
         const datos = snapshot.val() || estadoInicial;
- 
+        datos['plato' + numero] = true;
+        menuRef.set(datos).then(() => {
+            console.log("Plato " + numero + " revelado en Firebase");
+        }).catch((error) => {
+            console.error("Error al revelar plato:", error);
+            alert("Error: Revisa la conexión a Firebase");
+        });
+    });
+}
 
 // Función para ocultar un plato (solo admin)
 function ocultarPlato(numero) {
@@ -90,8 +98,7 @@ function ocultarPlato(numero) {
         alert("Solo el admin puede ocultar platos");
         return;
     }
-    
-    console.log("Ocultando plato", numero);
+
     menuRef.once('value', (snapshot) => {
         const datos = snapshot.val() || estadoInicial;
         datos['plato' + numero] = false;
@@ -102,30 +109,19 @@ function ocultarPlato(numero) {
             alert("Error: Revisa la conexión a Firebase");
         });
     });
-}       datos['plato' + numero] = true;
-        menuRef.set(datos).then(() => {
-            console.log("Plato " + numero + " revelado en Firebase");
-        }).catch((error) => {
-            console.error("Error al revelar plato:", error);
-            alert("Error: Revisa la conexión a Firebase");
-        });
-    });
 }
 
 // Escuchar cambios en tiempo real
 menuRef.on('value', (snapshot) => {
     const datos = snapshot.val() || estadoInicial;
     console.log("Actualizando vista con datos:", datos);
-    
+
     for (let i = 1; i <= 4; i++) {
         const plato = document.getElementById('plato' + i);
-        
         if (datos['plato' + i]) {
-            // Revelar
             plato.classList.remove('oculto');
             plato.classList.add('revelado');
         } else {
-            // Ocultar
             plato.classList.add('oculto');
             plato.classList.remove('revelado');
         }
