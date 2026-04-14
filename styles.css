@@ -37,6 +37,38 @@ h1 {
     gap: 20px;
 }
 
+.plato-contenedor {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: stretch;
+}
+
+.btn-revelar {
+    background: linear-gradient(135deg, #d63384, #b0286a);
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(214, 51, 132, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-revelar:hover {
+    background: linear-gradient(135deg, #b0286a, #8a1a4d);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(214, 51, 132, 0.6);
+}
+
+.btn-revelar:active {
+    transform: translateY(0);
+}
+
 .plato {
     background: #fff;
     padding: 20px;
@@ -51,7 +83,7 @@ h1 {
     pointer-events: none;
 }
 
-.plato.oculto button {
+.plato.oculto .btn-revelar {
     pointer-events: auto;
     opacity: 1;
     transform: none;
@@ -60,35 +92,4 @@ h1 {
 .plato.revelado {
     opacity: 1;
     transform: translateY(0);
-}
-
-.plato h2 {
-    color: #d63384;
-    margin-bottom: 10px;
-}
-
-.plato p {
-    font-size: 1.1em;
-    line-height: 1.5;
-}
-
-button {
-    background: #d63384;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background 0.3s;
-}
-
-button:hover {
-    background: #b0286a;
-}
-
-.footer {
-    margin-top: 30px;
-    font-style: italic;
-    color: #666;
 }
