@@ -1,14 +1,13 @@
 // Función para inicializar la app
 function initApp() {
     const database = window.database;
-    const ref = window.ref;
-    const set = window.set;
-    const onValue = window.onValue;
 
     if (!database) {
         console.error("Firebase no cargado");
         return;
     }
+
+    console.log("Firebase cargado correctamente");
 
     // Referencia a la base de datos
     const menuRef = database.ref('menu');
@@ -79,7 +78,5 @@ function initApp() {
     document.head.appendChild(style);
 }
 
-// Llamar initApp cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', function() {
-    initApp();
-});
+// Llamar initApp inmediatamente
+initApp();
